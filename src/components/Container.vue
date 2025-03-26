@@ -11,8 +11,24 @@ const addTodo = (text) => {
   todos.value.push({
     id: Date.now(),
     text,
+    completed: false
   })
 }
+
+const toggleTodo = (id) => {
+
+  const todo = todos.value.find(todo => todo.id === id)
+  console.log("toggleTodo called", todo)
+
+  if (todo) {
+    console.log("1st: ", todo.completed)
+
+    todo.completed = !todo.completed
+    console.log("2st: ", todo.completed)
+
+  }
+}
+
 
 const deleteTodo = (id) => {
   console.log("deleteTodo called")
@@ -27,7 +43,7 @@ const deleteTodo = (id) => {
 
     <InputComponent @new-todo="addTodo"/>
 
-    <TodoList :todos="todos" @delete-todo="deleteTodo"/>
+    <TodoList :todos="todos" @delete-todo="deleteTodo" @toggle-todo="toggleTodo"/>
 
     <ControlButtons/>
   </div>

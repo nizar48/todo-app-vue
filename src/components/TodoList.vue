@@ -20,7 +20,9 @@ const emit = defineEmits(['deleteTodo', 'toggleTodo'])
           :key="todo.id"
           :todo-text="todo.text"
           :todo-id="todo.id"
+          :completed="todo.completed"
           @delete-todo="$emit('deleteTodo', $event)"
+          @toggle-todo="$emit('toggleTodo', $event)"
       />
     </template>
     <p v-else class="text-center text-gray-500">
