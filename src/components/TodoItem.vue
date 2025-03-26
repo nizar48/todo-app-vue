@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { CircleCheckBig, Trash2 } from 'lucide-vue-next';
+
+const props = defineProps({
+  todoId: Number,
+  todoText: String,
+})
+
 </script>
 
 <template>
   <div class="flex space-x-2 border rounded-sm border-gray-300 flex-1 px-2 py-1 items-center">
     <div class="flex-1 my-auto">
-      Todo1
+      {{ todoText }}
     </div>
     <button class="bg-blue-500 text-white h-8 w-8 rounded-sm flex justify-center items-center cursor-pointer">
       <CircleCheckBig/>
