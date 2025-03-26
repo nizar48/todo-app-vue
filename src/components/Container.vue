@@ -15,36 +15,49 @@ const addTodo = (text) => {
   })
 }
 
+const deleteTodo = (id) => {
+  todos.value = todos.value.filter(todo => todo.id !== id)
+}
+
 const toggleTodo = (id) => {
-
   const todo = todos.value.find(todo => todo.id === id)
-  console.log("toggleTodo called", todo)
-
   if (todo) {
-    console.log("1st: ", todo.completed)
-
     todo.completed = !todo.completed
-    console.log("2st: ", todo.completed)
-
   }
 }
 
+const filteredTodos = computed(() => {
+  switch (filter.value) {
+    case 'active':
+      return todos.value.filter(todo => !todo.completed)
+    case 'completed':
+      return todos.value.filter(todo => todo.completed)
+    default:
+      return todos.value
+  }
+})
 
-const deleteTodo = (id) => {
-  console.log("deleteTodo called")
-
-  todos.value = todos.value.filter(todo => todo.id !== id)
+const clearCompleted = () => {
+  todos.value = todos.value.filter(todo => !todo.completed)
 }
 </script>
 
 <template>
-  <div class="max-w-2xl mx-auto mt-10 p-6 bg-white shadow border border-gray-200 rounded-lg">
+  <div class="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
     <h1 class="text-3xl font-bold text-center mb-6">Todo List</h1>
 
     <InputComponent @new-todo="addTodo"/>
 
-    <TodoList :todos="todos" @delete-todo="deleteTodo" @toggle-todo="toggleTodo"/>
+    <TodoList
+        :todos="filteredTodos"
+        @delete-todo="deleteTodo"
+        @toggle-todo="toggleTodo"
+    />
 
-    <ControlButtons/>
+    <ControlButtons
+        :todos="todos"
+        @filter="filter = $event"
+        @clear-completed="clearCompleted"
+    />
   </div>
 </template>
