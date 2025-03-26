@@ -6,6 +6,8 @@ const props = defineProps({
   todoText: String,
 })
 
+const emit = defineEmits(['deleteTodo', 'toggleTodo'])
+
 </script>
 
 <template>
@@ -16,7 +18,10 @@ const props = defineProps({
     <button class="bg-blue-500 text-white h-8 w-8 rounded-sm flex justify-center items-center cursor-pointer">
       <CircleCheckBig/>
     </button>
-    <button class="bg-red-500 text-white h-8 w-8 rounded-sm flex justify-center items-center cursor-pointer">
+    <button
+        @click="$emit('deleteTodo', todoId)"
+        class="bg-red-500 text-white h-8 w-8 rounded-sm flex justify-center items-center cursor-pointer"
+    >
       <Trash2/>
     </button>
   </div>

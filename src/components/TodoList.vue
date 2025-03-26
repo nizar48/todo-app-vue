@@ -8,6 +8,8 @@ const props = defineProps({
     required: true
   }
 })
+
+const emit = defineEmits(['deleteTodo', 'toggleTodo'])
 </script>
 
 <template>
@@ -18,6 +20,7 @@ const props = defineProps({
           :key="todo.id"
           :todo-text="todo.text"
           :todo-id="todo.id"
+          @delete-todo="$emit('deleteTodo', $event)"
       />
     </template>
     <p v-else class="text-center text-gray-500">
